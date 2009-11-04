@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="HEXTools.UnitOfMeasure.Length" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIAgAACCEKIgQAwUcEVAAAAAQAAAQoAAAIAAECBAABA=</HashCode>
+      <FileName>UnitOfLength.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HEXTools.UnitOfMeasure.Area" BaseTypeListCollapsed="true">
+    <Position X="5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AIAgAACAEIIgQAwUcEVAAAAAQAAAQoAAAIAAECBAABA=</HashCode>
+      <FileName>UnitOfArea.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HEXTools.UnitOfMeasure.Volume" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIAgEgAAEIEgZAwMcAVQAAAAIEAQQoEgAJAAEDBAAJA=</HashCode>
+      <FileName>UnitOfVolume.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Enum Name="HEXTools.UnitOfMeasure.LengthUnit">
+    <Position X="3" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IgIQAAQAEAMAAAAAARsAEDAAAAAAAEIIgAAAACACAAA=</HashCode>
+      <FileName>UnitOfLength.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="HEXTools.UnitOfMeasure.LengthSystem">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAgAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>UnitOfLength.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="HEXTools.UnitOfMeasure.AreaUnit">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ETAAAAAAIABQiAAQABAAAAAABAoAAAAAAAAQAAKAAIA=</HashCode>
+      <FileName>UnitOfArea.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="HEXTools.UnitOfMeasure.AreaSystem">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>UnitOfArea.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="HEXTools.UnitOfMeasure.VolumeUnit">
+    <Position X="12.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACACABI1iAAAgAUCAgAAEBAAAEEEAAAAQAAQoggA=</HashCode>
+      <FileName>UnitOfVolume.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="HEXTools.UnitOfMeasure.VolumeSystem">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAgAAgAAAAAABAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UnitOfVolume.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
