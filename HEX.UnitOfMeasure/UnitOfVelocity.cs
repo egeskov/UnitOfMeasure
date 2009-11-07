@@ -385,7 +385,7 @@ namespace HEX.UnitOfMeasure
 
         public override bool Equals(object other)
         {
-            return base.Equals(other);
+            return other is Velocity && this == (Velocity)other;
         }
 
         public override int GetHashCode()

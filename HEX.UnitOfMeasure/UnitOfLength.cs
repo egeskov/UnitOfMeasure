@@ -413,7 +413,7 @@ namespace HEX.UnitOfMeasure
 
         public override bool Equals(object other)
         {
-            return base.Equals(other);
+            return (other is Length) && (this == (Length)other);
         }
 
         public override int GetHashCode()

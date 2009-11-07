@@ -360,7 +360,7 @@ namespace HEX.UnitOfMeasure
 
         public override bool Equals(object other)
         {
-            return base.Equals(other);
+            return other is Area && this == (Area)other;
         }
 
         public override int GetHashCode()
