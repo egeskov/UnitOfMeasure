@@ -13,6 +13,9 @@ namespace TestConsole
             Console.WriteLine(l);
             Console.WriteLine(a);
             Console.WriteLine(v);
+
+            var f = new Length(2.4, LengthUnit.Fathom);
+            Console.WriteLine(f);
             Console.ReadKey();
         }
     }

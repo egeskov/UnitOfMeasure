@@ -15,7 +15,7 @@ namespace HEX.UnitOfMeasure
         // Imperial common
         Inch, Foot, Yard, Mile,
         // Imperial rare
-        MicroInch, 
+        MicroInch, Fathom, 
 
         // Astronimical
         LightSecond, LightMinute, LightHour, LightDay, LightWeek, LightYear,
@@ -43,13 +43,13 @@ namespace HEX.UnitOfMeasure
         static string[] unitTextShort = {"fm", "pm", "nm", "µm", "mm", "cm", "m", "km",
                                             "dm", "da", "hm", "Mm",
                                             "in", "ft", "yd", "mi",
-                                            "µin",                                            
+                                            "µin", "fathom",
                                             "lhs", "lm", "lh", "ld", "lw", "ly",
                                             "Nm",};
         static string[] unitText = {"femtometers", "picometers", "nanometers", "micrometers", "millimeters", "centimeters", "meters", "kilometers",
                                        "decimeters", "decameters", "hectometers", "megameters",
                                        "inches", "foot", "yards", "miles", 
-                                       "microinches",  
+                                       "microinches", "fathom",
                                        "light-seconds", "light-minutes", "light-hours", "light-days", "light-weeks", "light-years",
                                        "nautical miles"};
 
@@ -221,7 +221,7 @@ namespace HEX.UnitOfMeasure
         /// Calculate the factor from the input unit to one meter.
         /// </summary>
         /// <param name="unit"></param>
-        /// <returns></returns>
+        /// <returns>Lenght in meters</returns>
         static double factor(LengthUnit unit)
         {
             switch (unit)
@@ -243,6 +243,7 @@ namespace HEX.UnitOfMeasure
                 case LengthUnit.Inch: return 2.54e-2;
                 case LengthUnit.Foot: return 3.048e-1;
                 case LengthUnit.Yard: return 9.144e-1;
+                case LengthUnit.Fathom: return 1.82880;
                 case LengthUnit.Mile: return 1.609344e3;
                 case LengthUnit.NauticalMile: return 1.852e3;
 
