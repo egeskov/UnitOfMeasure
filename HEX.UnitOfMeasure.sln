@@ -1,23 +1,19 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HEX.UnitOfMeasure", "HEX.UnitOfMeasure\HEX.UnitOfMeasure.csproj", "{946B9929-B2D1-4287-95B6-FCB09F5FE205}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{D23C415B-DBB7-4F83-967F-683CD125DABC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{52E12204-6F23-4FE9-B82C-C4C84A8EC769}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F61975FC-4F9D-4DC3-8F88-7D68959DBF01}"
 	ProjectSection(SolutionItems) = preProject
 		HEX.UnitOfMeasure.vsmdi = HEX.UnitOfMeasure.vsmdi
 		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HEX.UnitOfMeasure", "HEX.UnitOfMeasure\HEX.UnitOfMeasure.csproj", "{946B9929-B2D1-4287-95B6-FCB09F5FE205}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{D23C415B-DBB7-4F83-967F-683CD125DABC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{52E12204-6F23-4FE9-B82C-C4C84A8EC769}"
+EndProject
 Global
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = HEX.UnitOfMeasure.vsmdi
 	EndGlobalSection
@@ -41,5 +37,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
 	EndGlobalSection
 EndGlobal
