@@ -282,7 +282,7 @@ namespace HEX.UnitOfMeasure
                 case VolumeUnit.CubicFoot: return 2.8316846592e-2;
                 case VolumeUnit.CubicYard: return 7.64554857984e-1;
 
-                case VolumeUnit.FluidOunce: return 2.8413e1-5;
+                case VolumeUnit.FluidOunce: return 2.8413e-5;
                 case VolumeUnit.Pint: return 5.68261e-4;
                 case VolumeUnit.Quant: return 1.136523e-3;
                 case VolumeUnit.Gallon: return 4.54609e-3;
