@@ -10,7 +10,7 @@ namespace HEX.UnitOfMeasure
         // Metric common
         MeterPerSecond, KiloMeterPerHour,
         // Metric rare
-        MilliMeterPerMinute, MilliMeterPerSecond, CentiMeterPerMinute, CentiMeterPerSecond, MeterPerMinute, 
+        MilliMeterPerHour, MilliMeterPerMinute, MilliMeterPerSecond, CentiMeterPerMinute, CentiMeterPerSecond, MeterPerMinute, 
 
         // Imperial common
         MilePerHour, 
@@ -41,13 +41,13 @@ namespace HEX.UnitOfMeasure
         #region Constants
 
         static string[] unitTextShort = {"ms", "kmh",
-                                        "mm/min", "mm/s", "cm/min", "cm/s", "m/min", 
+                                        "mm/h", "mm/min", "mm/s", "cm/min", "cm/s", "m/min", 
                                         "mph", 
                                         "in/s", "in/h", "ft/h", "ft/min", "ft/s", "mi/min", 
                                         "x speed of sound", "x speed of light",
                                         "kn"};
         static string[] unitText = {"meters per second", "kilometers per hour", 
-                                   "millimeters per minute", "milimeters per second", "centimeters per minute", "centimeters per second", "meters per minute", 
+                                   "millimeters per hour", "millimeters per minute", "milimeters per second", "centimeters per minute", "centimeters per second", "meters per minute", 
                                    "miles per hour", 
                                    "inches per second", "inches per hour", "foots per hour", "foots per minute", "foots per second", "miles per minute", 
                                    "times the speed of sound", "times the speed of light",
@@ -221,6 +221,7 @@ namespace HEX.UnitOfMeasure
         {
             switch (unit)
             {
+                case VelocityUnit.MilliMeterPerHour: return 2.8e-7;         // http://convert-to.com/conversion/speed/convert-mm-per-hour-to-m-per-second.html
                 case VelocityUnit.MilliMeterPerMinute: return 1.66667e-5;
                 case VelocityUnit.CentiMeterPerMinute: return 1.66667e-4;
                 case VelocityUnit.MilliMeterPerSecond: return 1e-3;
