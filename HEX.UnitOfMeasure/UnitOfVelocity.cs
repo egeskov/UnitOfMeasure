@@ -15,7 +15,7 @@ namespace HEX.UnitOfMeasure
         // Imperial common
         MilePerHour, 
         // Imperial rare
-        InchPerSecond, FootPerHour, FootPerMinute, FootPerSecond, MilePerMinute,
+        InchPerSecond, InchPerHour, FootPerHour, FootPerMinute, FootPerSecond, MilePerMinute,
 
         // Astronimical
         SpeedOfSound, SpeedOfLight,
@@ -43,13 +43,13 @@ namespace HEX.UnitOfMeasure
         static string[] unitTextShort = {"ms", "kmh",
                                         "mm/min", "mm/s", "cm/min", "cm/s", "m/min", 
                                         "mph", 
-                                        "in/s", "ft/h", "ft/min", "ft/s", "mi/min", 
+                                        "in/s", "in/h", "ft/h", "ft/min", "ft/s", "mi/min", 
                                         "x speed of sound", "x speed of light",
                                         "kn"};
         static string[] unitText = {"meters per second", "kilometers per hour", 
                                    "millimeters per minute", "milimeters per second", "centimeters per minute", "centimeters per second", "meters per minute", 
                                    "miles per hour", 
-                                   "inches per second", "foots per hour", "foots per minute", "foots per second", "miles per minute", 
+                                   "inches per second", "inches per hour", "foots per hour", "foots per minute", "foots per second", "miles per minute", 
                                    "times the speed of sound", "times the speed of light",
                                    "knots"};
 
@@ -213,7 +213,7 @@ namespace HEX.UnitOfMeasure
         #region Reshape
 
         /// <summary>
-        /// Calculate the factor from the input unit to one meter.
+        /// Calculate the factor from the input unit to one meter per second.
         /// </summary>
         /// <param name="unit"></param>
         /// <returns></returns>
@@ -229,6 +229,7 @@ namespace HEX.UnitOfMeasure
                 case VelocityUnit.KiloMeterPerHour: return 0.277778;
                 case VelocityUnit.MeterPerSecond: return 1;
 
+                case VelocityUnit.InchPerHour: return 7.1e-6;               // http://convert-to.com/conversion/speed/convert-in-per-hour-to-m-per-second.html
                 case VelocityUnit.FootPerHour: return 8.46667e-5;
                 case VelocityUnit.FootPerMinute: return 5.08e-3;
                 case VelocityUnit.InchPerSecond: return 2.54e-2;
