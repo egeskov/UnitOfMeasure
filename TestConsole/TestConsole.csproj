@@ -67,12 +67,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HEX.UnitOfMeasure\HEX.UnitOfMeasure.csproj">
-      <Project>{946B9929-B2D1-4287-95B6-FCB09F5FE205}</Project>
-      <Name>HEX.UnitOfMeasure</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
@@ -91,6 +85,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HEX.UnitOfMeasure\HEX.UnitOfMeasure.csproj">
+      <Project>{f5cef135-0faf-4395-a4b3-be63fb13e197}</Project>
+      <Name>HEX.UnitOfMeasure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

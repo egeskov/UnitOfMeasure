@@ -1,18 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F61975FC-4F9D-4DC3-8F88-7D68959DBF01}"
 	ProjectSection(SolutionItems) = preProject
 		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HEX.UnitOfMeasure", "HEX.UnitOfMeasure\HEX.UnitOfMeasure.csproj", "{946B9929-B2D1-4287-95B6-FCB09F5FE205}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{D23C415B-DBB7-4F83-967F-683CD125DABC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{52E12204-6F23-4FE9-B82C-C4C84A8EC769}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HEX.UnitOfMeasure", "HEX.UnitOfMeasure\HEX.UnitOfMeasure.csproj", "{F5CEF135-0FAF-4395-A4B3-BE63FB13E197}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,10 +20,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{946B9929-B2D1-4287-95B6-FCB09F5FE205}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{946B9929-B2D1-4287-95B6-FCB09F5FE205}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{946B9929-B2D1-4287-95B6-FCB09F5FE205}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{946B9929-B2D1-4287-95B6-FCB09F5FE205}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D23C415B-DBB7-4F83-967F-683CD125DABC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D23C415B-DBB7-4F83-967F-683CD125DABC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D23C415B-DBB7-4F83-967F-683CD125DABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -32,9 +28,16 @@ Global
 		{52E12204-6F23-4FE9-B82C-C4C84A8EC769}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52E12204-6F23-4FE9-B82C-C4C84A8EC769}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52E12204-6F23-4FE9-B82C-C4C84A8EC769}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5CEF135-0FAF-4395-A4B3-BE63FB13E197}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5CEF135-0FAF-4395-A4B3-BE63FB13E197}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5CEF135-0FAF-4395-A4B3-BE63FB13E197}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5CEF135-0FAF-4395-A4B3-BE63FB13E197}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B6DA4757-08F1-473D-9BD9-5D92D7DDE252}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = HEX.UnitOfMeasure.vsmdi
