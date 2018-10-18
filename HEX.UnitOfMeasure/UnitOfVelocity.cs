@@ -10,10 +10,10 @@ namespace HEX.UnitOfMeasure
         // Metric common
         MeterPerSecond, KiloMeterPerHour,
         // Metric rare
-        MilliMeterPerHour, MilliMeterPerMinute, MilliMeterPerSecond, CentiMeterPerMinute, CentiMeterPerSecond, MeterPerMinute, 
+        MilliMeterPerHour, MilliMeterPerMinute, MilliMeterPerSecond, CentiMeterPerMinute, CentiMeterPerSecond, MeterPerMinute,
 
         // Imperial common
-        MilePerHour, 
+        MilePerHour,
         // Imperial rare
         InchPerSecond, InchPerHour, FootPerHour, FootPerMinute, FootPerSecond, MilePerMinute,
 
@@ -40,18 +40,22 @@ namespace HEX.UnitOfMeasure
     {
         #region Constants
 
-        static string[] unitTextShort = {"ms", "kmh",
-                                        "mm/h", "mm/min", "mm/s", "cm/min", "cm/s", "m/min", 
-                                        "mph", 
-                                        "in/s", "in/h", "ft/h", "ft/min", "ft/s", "mi/min", 
-                                        "x speed of sound", "x speed of light",
-                                        "kn"};
-        static string[] unitText = {"meters per second", "kilometers per hour", 
-                                   "millimeters per hour", "millimeters per minute", "milimeters per second", "centimeters per minute", "centimeters per second", "meters per minute", 
-                                   "miles per hour", 
-                                   "inches per second", "inches per hour", "foots per hour", "foots per minute", "foots per second", "miles per minute", 
-                                   "times the speed of sound", "times the speed of light",
-                                   "knots"};
+        private static readonly string[] unitTextShort = {
+            "ms", "kmh",
+            "mm/h", "mm/min", "mm/s", "cm/min", "cm/s", "m/min",
+            "mph",
+            "in/s", "in/h", "ft/h", "ft/min", "ft/s", "mi/min",
+            "x speed of sound", "x speed of light",
+            "kn"
+        };
+        private static readonly string[] unitText = {
+            "meters per second", "kilometers per hour",
+            "millimeters per hour", "millimeters per minute", "milimeters per second", "centimeters per minute", "centimeters per second", "meters per minute",
+            "miles per hour",
+            "inches per second", "inches per hour", "foots per hour", "foots per minute", "foots per second", "miles per minute",
+            "times the speed of sound", "times the speed of light",
+            "knots"
+        };
 
         const VelocityUnit UNIT_IDX_METRIC_MIN = VelocityUnit.MeterPerSecond;
         const VelocityUnit UNIT_IDX_METRIC_MAX_STD = VelocityUnit.KiloMeterPerHour;
@@ -83,19 +87,19 @@ namespace HEX.UnitOfMeasure
 
         public Velocity(double value)
         {
-            this.internalValue = value;
+            internalValue = value;
         }
 
         public Velocity(double value, VelocityUnit unit)
         {
             this.unit = unit;
-            this.internalValue = value;
+            internalValue = value;
         }
 
         public Velocity(Velocity other)
         {
-            this.unit = other.unit;
-            this.internalValue = other.internalValue;
+            unit = other.unit;
+            internalValue = other.internalValue;
         }
 
         #endregion Constructors
@@ -115,16 +119,16 @@ namespace HEX.UnitOfMeasure
 
         public override string ToString()
         {
-            return string.Format("{0} {1}", this.internalValue, this.UnitToStringShort());
+            return string.Format("{0} {1}", internalValue, UnitToStringShort());
         }
 
         public string ToString(string format)
         {
             format = format.ToLower();
             if (format.Contains("l"))
-                return this.internalValue.ToString(format.Replace("l", "")) + " " + this.UnitToString();
+                return internalValue.ToString(format.Replace("l", "")) + " " + UnitToString();
             else
-                return this.internalValue.ToString(format) + " " + this.UnitToStringShort();
+                return internalValue.ToString(format) + " " + UnitToStringShort();
         }
 
         /// <summary>
@@ -165,7 +169,7 @@ namespace HEX.UnitOfMeasure
                 result = Parse(s);
                 return true;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 result = new Velocity();
                 return false;
@@ -179,10 +183,10 @@ namespace HEX.UnitOfMeasure
 
         public VelocitySystem System
         {
-            get { return getSystem(this.unit); }
+            get { return GetSystem(unit); }
         }
 
-        static VelocitySystem getSystem(VelocityUnit unit)
+        private static VelocitySystem GetSystem(VelocityUnit unit)
         {
             if (UNIT_IDX_METRIC_MIN <= unit && unit <= UNIT_IDX_METRIC_MAX)
                 return VelocitySystem.Metric;
@@ -194,17 +198,17 @@ namespace HEX.UnitOfMeasure
 
         public bool IsMetric
         {
-            get { return getSystem(unit) == VelocitySystem.Metric; }
+            get { return GetSystem(unit) == VelocitySystem.Metric; }
         }
 
         public bool IsImperial
         {
-            get { return getSystem(unit) == VelocitySystem.Imperial; }
+            get { return GetSystem(unit) == VelocitySystem.Imperial; }
         }
 
         public bool IsAstronimical
         {
-            get { return getSystem(unit) == VelocitySystem.Astronomical; }
+            get { return GetSystem(unit) == VelocitySystem.Astronomical; }
         }
 
         #endregion UnitSystem
@@ -217,31 +221,49 @@ namespace HEX.UnitOfMeasure
         /// </summary>
         /// <param name="unit"></param>
         /// <returns></returns>
-        static double factor(VelocityUnit unit)
+        private static double Factor(VelocityUnit unit)
         {
             switch (unit)
             {
-                case VelocityUnit.MilliMeterPerHour: return 2.8e-7;         // http://convert-to.com/conversion/speed/convert-mm-per-hour-to-m-per-second.html
-                case VelocityUnit.MilliMeterPerMinute: return 1.66667e-5;
-                case VelocityUnit.CentiMeterPerMinute: return 1.66667e-4;
-                case VelocityUnit.MilliMeterPerSecond: return 1e-3;
-                case VelocityUnit.CentiMeterPerSecond: return 1e-2;
-                case VelocityUnit.MeterPerMinute: return 1.66667e-2;
-                case VelocityUnit.KiloMeterPerHour: return 0.277778;
-                case VelocityUnit.MeterPerSecond: return 1;
+                case VelocityUnit.MilliMeterPerHour:
+                    return 2.8e-7;               // http://convert-to.com/conversion/speed/convert-mm-per-hour-to-m-per-second.html
+                case VelocityUnit.MilliMeterPerMinute:
+                    return 1.66667e-5;
+                case VelocityUnit.CentiMeterPerMinute:
+                    return 1.66667e-4;
+                case VelocityUnit.MilliMeterPerSecond:
+                    return 1e-3;
+                case VelocityUnit.CentiMeterPerSecond:
+                    return 1e-2;
+                case VelocityUnit.MeterPerMinute:
+                    return 1.66667e-2;
+                case VelocityUnit.KiloMeterPerHour:
+                    return 0.277778;
+                case VelocityUnit.MeterPerSecond:
+                    return 1;
 
-                case VelocityUnit.InchPerHour: return 7.1e-6;               // http://convert-to.com/conversion/speed/convert-in-per-hour-to-m-per-second.html
-                case VelocityUnit.FootPerHour: return 8.46667e-5;
-                case VelocityUnit.FootPerMinute: return 5.08e-3;
-                case VelocityUnit.InchPerSecond: return 2.54e-2;
-                case VelocityUnit.FootPerSecond: return 0.3048;
-                case VelocityUnit.MilePerHour: return 0.44704;
-                case VelocityUnit.MilePerMinute: return 26.8224;
+                case VelocityUnit.InchPerHour:
+                    return 7.1e-6;               // http://convert-to.com/conversion/speed/convert-in-per-hour-to-m-per-second.html
+                case VelocityUnit.FootPerHour:
+                    return 8.46667e-5;
+                case VelocityUnit.FootPerMinute:
+                    return 5.08e-3;
+                case VelocityUnit.InchPerSecond:
+                    return 2.54e-2;
+                case VelocityUnit.FootPerSecond:
+                    return 0.3048;
+                case VelocityUnit.MilePerHour:
+                    return 0.44704;
+                case VelocityUnit.MilePerMinute:
+                    return 26.8224;
 
-                case VelocityUnit.SpeedOfSound: return 3.432e2;
-                case VelocityUnit.SpeedOfLight: return 2.99792e8;
+                case VelocityUnit.SpeedOfSound:
+                    return 3.432e2;
+                case VelocityUnit.SpeedOfLight:
+                    return 2.99792e8;
 
-                case VelocityUnit.Knot: return 0.514444;
+                case VelocityUnit.Knot:
+                    return 0.514444;
                 default:
                     throw new NotImplementedException();
             }
@@ -250,11 +272,11 @@ namespace HEX.UnitOfMeasure
         public double As(VelocityUnit unit)
         {
             if (this.unit == unit)
-                return this.internalValue;
+                return internalValue;
             else
             {
-                double f = factor(this.unit) / factor(unit);
-                return this.internalValue * f;
+                double f = Factor(this.unit) / Factor(unit);
+                return internalValue * f;
             }
         }
 
@@ -262,15 +284,15 @@ namespace HEX.UnitOfMeasure
         {
             get
             {
-                return this.unit;
+                return unit;
             }
             set
             {
-                if (this.unit != value)
+                if (unit != value)
                 {
-                    double f = factor(this.unit) / factor(value);
-                    this.internalValue *= f;
-                    this.unit = value;
+                    double f = Factor(unit) / Factor(value);
+                    internalValue *= f;
+                    unit = value;
                 }
             }
         }
@@ -299,22 +321,22 @@ namespace HEX.UnitOfMeasure
                 default:
                     return;
             }
-            if (this.internalValue != 0)
+            if (internalValue != 0)
             {
-                double log = Math.Log10(this.internalValue);
-                double f = factor(this.unit);
+                double log = Math.Log10(internalValue);
+                double f = Factor(unit);
                 for (VelocityUnit u = max; u >= min; u--)
                 {
-                    double log_new = Math.Log10(f / factor(u));
+                    double log_new = Math.Log10(f / Factor(u));
                     if (log + log_new >= 0)
                     {
-                        this.Unit = u;
+                        Unit = u;
                         break;
                     }
                 }
             }
             else if (IsMetric)
-                this.unit = SI;
+                unit = SI;
         }
 
         #endregion Reshape
@@ -392,7 +414,7 @@ namespace HEX.UnitOfMeasure
 
         public override int GetHashCode()
         {
-            return this.internalValue.GetHashCode() ^ this.Unit.GetHashCode();
+            return internalValue.GetHashCode() ^ Unit.GetHashCode();
         }
 
         #endregion Object overrides
@@ -404,8 +426,8 @@ namespace HEX.UnitOfMeasure
         {
             if (obj != null && obj is Velocity)
             {
-                double o = ((Velocity)obj).As(this.unit);
-                return this.internalValue.CompareTo(o);
+                double o = ((Velocity)obj).As(unit);
+                return internalValue.CompareTo(o);
             }
             else
                 throw new ArgumentException("Object of Velocity expected!");

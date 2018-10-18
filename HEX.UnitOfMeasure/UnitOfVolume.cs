@@ -13,12 +13,12 @@ namespace HEX.UnitOfMeasure
         CubicDeciMeter, CubicDecaMeter, CubicHectoMeter,
 
         // Metric liquid commin
-        MicroLiter, MilliLiter, CentiLiter, DeciLiter, Liter, HectoLiter, 
+        MicroLiter, MilliLiter, CentiLiter, DeciLiter, Liter, HectoLiter,
         // Metric liquid rare
         DecaLiter, KiloLiter, MegaLiter, GigaLiter,
 
         // Imperial solid common
-        CubicMicroInch, CubicInch, CubicFoot, CubicYard, 
+        CubicMicroInch, CubicInch, CubicFoot, CubicYard,
 
         // Imperial liquid common
         FluidOunce, Pint, Quant, Gallon,
@@ -43,19 +43,23 @@ namespace HEX.UnitOfMeasure
     {
         #region Constants
 
-        static string[] unitTextShort = {"fm³", "pm³", "nm³", "µm³", "mm³", "cm³", "m³", "km³",
-                                            "dm³", "da³", "ha³",
-                                            "µl", "ml", "cl", "dl", "l", "hl", 
-                                            "dal", "kl", "Ml", "Gl",
-                                            "µin³", "in³", "ft³", "yd³",
-                                            "fl.o", "pt", "qt", "gal"};
-        static string[] unitText = {"cubic femtometers", "cubic picometers", "cubic nanometers", "cubic micrometers", "cubic millimeters", "cubic centimeters", "cubic meters", "cubic kilometers",
-                                       "cubic decimeters", "cubic decameters", "cubic megameters",
-                                       "microliters", "milliliters", "centiliters", "deciliters", "liters", "hectoliters",
-                                       "decaliters", "kiloliters", "megaliters", "gigaliters",
-                                       "cubic microinches", "cubic inches", "cubic foot", "cubic yards",
-                                       "fluid ounces", "pints", "quants", "gallons",
-                                       "barrels"};
+        private static readonly string[] unitTextShort = {
+            "fm³", "pm³", "nm³", "µm³", "mm³", "cm³", "m³", "km³",
+            "dm³", "da³", "ha³",
+            "µl", "ml", "cl", "dl", "l", "hl",
+            "dal", "kl", "Ml", "Gl",
+            "µin³", "in³", "ft³", "yd³",
+            "fl.o", "pt", "qt", "gal"
+        };
+        private static readonly string[] unitText = {
+            "cubic femtometers", "cubic picometers", "cubic nanometers", "cubic micrometers", "cubic millimeters", "cubic centimeters", "cubic meters", "cubic kilometers",
+            "cubic decimeters", "cubic decameters", "cubic megameters",
+            "microliters", "milliliters", "centiliters", "deciliters", "liters", "hectoliters",
+            "decaliters", "kiloliters", "megaliters", "gigaliters",
+            "cubic microinches", "cubic inches", "cubic foot", "cubic yards",
+            "fluid ounces", "pints", "quants", "gallons",
+            "barrels"
+        };
 
         const VolumeUnit UNIT_IDX_METRIC_SOLID_MIN = VolumeUnit.CubicFemtoMeter;
         const VolumeUnit UNIT_IDX_METRIC_SOLID_MAX_STD = VolumeUnit.CubicKiloMeter;
@@ -89,19 +93,19 @@ namespace HEX.UnitOfMeasure
 
         public Volume(double value)
         {
-            this.internalValue = value;
+            internalValue = value;
         }
 
         public Volume(double value, VolumeUnit unit)
         {
             this.unit = unit;
-            this.internalValue = value;
+            internalValue = value;
         }
 
         public Volume(Volume other)
         {
-            this.unit = other.unit;
-            this.internalValue = other.internalValue;
+            unit = other.unit;
+            internalValue = other.internalValue;
         }
 
         #endregion Constructors
@@ -122,16 +126,16 @@ namespace HEX.UnitOfMeasure
 
         public override string ToString()
         {
-            return string.Format("{0} {1}", this.internalValue, this.UnitToStringShort());
+            return string.Format("{0} {1}", internalValue, UnitToStringShort());
         }
 
         public string ToString(string format)
         {
             format = format.ToLower();
             if (format.Contains("l"))
-                return this.internalValue.ToString(format.Replace("l", "")) + " " + this.UnitToString();
+                return internalValue.ToString(format.Replace("l", "")) + " " + UnitToString();
             else
-                return this.internalValue.ToString(format) + " " + this.UnitToStringShort();
+                return internalValue.ToString(format) + " " + UnitToStringShort();
         }
 
         /// <summary>
@@ -186,10 +190,10 @@ namespace HEX.UnitOfMeasure
 
         public VolumeSystem System
         {
-            get { return getSystem(this.unit); }
+            get { return GetSystem(unit); }
         }
 
-        static VolumeSystem getSystem(VolumeUnit unit)
+        private static VolumeSystem GetSystem(VolumeUnit unit)
         {
             if (UNIT_IDX_METRIC_SOLID_MIN <= unit && unit <= UNIT_IDX_METRIC_SOLID_MAX)
                 return VolumeSystem.MetricSolid;
@@ -199,7 +203,7 @@ namespace HEX.UnitOfMeasure
                 return VolumeSystem.ImperialSolid;
             if (UNIT_IDX_IMPERIAL_LIQUID_MIN <= unit && unit <= UNIT_IDX_IMPERIAL_LIQUID_MAX)
                 return VolumeSystem.ImperialLiquid;
-            else 
+            else
                 return VolumeSystem.Special;
         }
 
@@ -207,37 +211,38 @@ namespace HEX.UnitOfMeasure
         {
             get
             {
-                VolumeSystem s = getSystem(unit);
+                VolumeSystem s = GetSystem(unit);
                 return s == VolumeSystem.MetricSolid || s == VolumeSystem.MetricLiquid;
             }
         }
 
         public bool IsMetricSolid
         {
-            get { return getSystem(unit) == VolumeSystem.ImperialSolid; }
+            get { return GetSystem(unit) == VolumeSystem.ImperialSolid; }
         }
 
         public bool IsMetricLiquid
         {
-            get { return getSystem(unit) == VolumeSystem.MetricLiquid; }
+            get { return GetSystem(unit) == VolumeSystem.MetricLiquid; }
         }
 
         public bool IsImperial
         {
-            get {
-                VolumeSystem s = getSystem(unit);
-                return s == VolumeSystem.ImperialSolid || s == VolumeSystem.ImperialLiquid; 
+            get
+            {
+                VolumeSystem s = GetSystem(unit);
+                return s == VolumeSystem.ImperialSolid || s == VolumeSystem.ImperialLiquid;
             }
         }
 
         public bool IsImperialSolid
         {
-            get { return getSystem(unit) == VolumeSystem.ImperialSolid; }
+            get { return GetSystem(unit) == VolumeSystem.ImperialSolid; }
         }
 
         public bool IsImperialLiquid
         {
-            get { return getSystem(unit) == VolumeSystem.ImperialLiquid; }
+            get { return GetSystem(unit) == VolumeSystem.ImperialLiquid; }
         }
 
         #endregion UnitSystem
@@ -250,44 +255,74 @@ namespace HEX.UnitOfMeasure
         /// </summary>
         /// <param name="unit"></param>
         /// <returns></returns>
-        static double factor(VolumeUnit unit)
+        private static double Factor(VolumeUnit unit)
         {
             switch (unit)
             {
-                case VolumeUnit.CubicFemtoMeter: return 1e-45;
-                case VolumeUnit.CubicPicoMeter: return 1e-36;
-                case VolumeUnit.CubicNanoMeter: return 1e-27;
-                case VolumeUnit.CubicMicroMeter: return 1e-18;
-                case VolumeUnit.CubicMilliMeter: return 1e-9;
-                case VolumeUnit.CubicCentiMeter: return 1e-6;
-                case VolumeUnit.CubicDeciMeter: return 1e-3;
-                case VolumeUnit.CubicMeter: return 1;
-                case VolumeUnit.CubicDecaMeter: return 1e3;
-                case VolumeUnit.CubicHectoMeter: return 1e6;
-                case VolumeUnit.CubicKiloMeter: return 1e9;
+                case VolumeUnit.CubicFemtoMeter:
+                    return 1e-45;
+                case VolumeUnit.CubicPicoMeter:
+                    return 1e-36;
+                case VolumeUnit.CubicNanoMeter:
+                    return 1e-27;
+                case VolumeUnit.CubicMicroMeter:
+                    return 1e-18;
+                case VolumeUnit.CubicMilliMeter:
+                    return 1e-9;
+                case VolumeUnit.CubicCentiMeter:
+                    return 1e-6;
+                case VolumeUnit.CubicDeciMeter:
+                    return 1e-3;
+                case VolumeUnit.CubicMeter:
+                    return 1;
+                case VolumeUnit.CubicDecaMeter:
+                    return 1e3;
+                case VolumeUnit.CubicHectoMeter:
+                    return 1e6;
+                case VolumeUnit.CubicKiloMeter:
+                    return 1e9;
 
-                case VolumeUnit.MicroLiter: return 1e-9;
-                case VolumeUnit.MilliLiter: return 1e-6;
-                case VolumeUnit.CentiLiter: return 1e-5;
-                case VolumeUnit.DeciLiter: return 1e-4;
-                case VolumeUnit.Liter: return 1e-3;
-                case VolumeUnit.DecaLiter: return 1e-2;
-                case VolumeUnit.HectoLiter: return 1e-1;
-                case VolumeUnit.KiloLiter: return 1;
-                case VolumeUnit.MegaLiter: return 1e3;
-                case VolumeUnit.GigaLiter: return 1e6;
+                case VolumeUnit.MicroLiter:
+                    return 1e-9;
+                case VolumeUnit.MilliLiter:
+                    return 1e-6;
+                case VolumeUnit.CentiLiter:
+                    return 1e-5;
+                case VolumeUnit.DeciLiter:
+                    return 1e-4;
+                case VolumeUnit.Liter:
+                    return 1e-3;
+                case VolumeUnit.DecaLiter:
+                    return 1e-2;
+                case VolumeUnit.HectoLiter:
+                    return 1e-1;
+                case VolumeUnit.KiloLiter:
+                    return 1;
+                case VolumeUnit.MegaLiter:
+                    return 1e3;
+                case VolumeUnit.GigaLiter:
+                    return 1e6;
 
-                case VolumeUnit.CubicMicroInch: return 1.6387064e-23;
-                case VolumeUnit.CubicInch: return 1.6387064e-5;
-                case VolumeUnit.CubicFoot: return 2.8316846592e-2;
-                case VolumeUnit.CubicYard: return 7.64554857984e-1;
+                case VolumeUnit.CubicMicroInch:
+                    return 1.6387064e-23;
+                case VolumeUnit.CubicInch:
+                    return 1.6387064e-5;
+                case VolumeUnit.CubicFoot:
+                    return 2.8316846592e-2;
+                case VolumeUnit.CubicYard:
+                    return 7.64554857984e-1;
 
-                case VolumeUnit.FluidOunce: return 2.8413e-5;
-                case VolumeUnit.Pint: return 5.68261e-4;
-                case VolumeUnit.Quant: return 1.136523e-3;
-                case VolumeUnit.Gallon: return 4.54609e-3;
+                case VolumeUnit.FluidOunce:
+                    return 2.8413e-5;
+                case VolumeUnit.Pint:
+                    return 5.68261e-4;
+                case VolumeUnit.Quant:
+                    return 1.136523e-3;
+                case VolumeUnit.Gallon:
+                    return 4.54609e-3;
 
-                case VolumeUnit.Barrel: return 1.58987294928e-1;
+                case VolumeUnit.Barrel:
+                    return 1.58987294928e-1;
                 default:
                     throw new NotImplementedException();
             }
@@ -296,11 +331,11 @@ namespace HEX.UnitOfMeasure
         public double As(VolumeUnit unit)
         {
             if (this.unit == unit)
-                return this.internalValue;
+                return internalValue;
             else
             {
-                double f = factor(this.unit) / factor(unit);
-                return this.internalValue * f;
+                double f = Factor(this.unit) / Factor(unit);
+                return internalValue * f;
             }
         }
 
@@ -308,15 +343,15 @@ namespace HEX.UnitOfMeasure
         {
             get
             {
-                return this.unit;
+                return unit;
             }
             set
             {
-                if (this.unit != value)
+                if (unit != value)
                 {
-                    double f = factor(this.unit) / factor(value);
-                    this.internalValue *= f;
-                    this.unit = value;
+                    double f = Factor(unit) / Factor(value);
+                    internalValue *= f;
+                    unit = value;
                 }
             }
         }
@@ -351,22 +386,22 @@ namespace HEX.UnitOfMeasure
                     default:
                         return;
                 }
-                if (this.internalValue != 0)
+                if (internalValue != 0)
                 {
-                    double log = Math.Log10(this.internalValue);
-                    double f = factor(this.unit);
+                    double log = Math.Log10(internalValue);
+                    double f = Factor(unit);
                     for (VolumeUnit u = max; u >= min; u--)
                     {
-                        double log_new = Math.Log10(f / factor(u));
+                        double log_new = Math.Log10(f / Factor(u));
                         if (log + log_new >= 0)
                         {
-                            this.Unit = u;
+                            Unit = u;
                             break;
                         }
                     }
                 }
                 else if (IsMetric)
-                    this.unit = SI;
+                    unit = SI;
             }
         }
 
@@ -376,7 +411,7 @@ namespace HEX.UnitOfMeasure
         #region Operaters
 
         public static Volume operator +(Volume ls, Volume rs)
-        {            
+        {
             return new Volume(ls.internalValue + rs.As(ls.unit), ls.unit);
         }
 
@@ -402,7 +437,7 @@ namespace HEX.UnitOfMeasure
 
         public static Area operator /(Volume ls, Length rs)
         {
-            VolumeSystem s=ls.System;
+            VolumeSystem s = ls.System;
             if (s == VolumeSystem.MetricSolid || s == VolumeSystem.ImperialSolid)
             {
                 Area res;
@@ -445,7 +480,7 @@ namespace HEX.UnitOfMeasure
 
         public override int GetHashCode()
         {
-            return this.internalValue.GetHashCode() ^ this.Unit.GetHashCode();
+            return internalValue.GetHashCode() ^ Unit.GetHashCode();
         }
 
         #endregion Object overrides
@@ -457,8 +492,8 @@ namespace HEX.UnitOfMeasure
         {
             if (obj != null && obj is Volume)
             {
-                double o = ((Volume)obj).As(this.unit);
-                return this.internalValue.CompareTo(o);
+                double o = ((Volume)obj).As(unit);
+                return internalValue.CompareTo(o);
             }
             else
                 throw new ArgumentException("Object of Volume expected!");

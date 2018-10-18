@@ -15,7 +15,7 @@ namespace HEX.UnitOfMeasure
         string ToString();
         string ToString(string format);
         void Normalize();
-        bool IsMetric {get;}
+        bool IsMetric { get; }
         bool Equals(object other);
         int GetHashCode();
     }

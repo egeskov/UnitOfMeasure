@@ -29,12 +29,16 @@ namespace HEX.UnitOfMeasure
     {
         #region Constants
 
-        static string[] unitTextShort = {"fm²", "pm²", "nm²", "µm²", "mm²", "cm²", "m²", "ha", "km²",
-                                            "dm²", "da²", "hm²", "Mm²",
-                                            "µin²", "in²", "ft²", "yd²", "ac", "mi²"};
-        static string[] unitText = {"square femtometers", "square picometers", "square nanometers", "square micrometers", "square millimeters", "square centimeters", "square meters", "hectares", "square kilometers",
-                                       "square decimeters", "square decameters", "square megameters",
-                                       "square microinches", "square inches", "square foot", "square yards", "acres", "square miles"};
+        private static readonly string[] unitTextShort = {
+            "fm²", "pm²", "nm²", "µm²", "mm²", "cm²", "m²", "ha", "km²",
+            "dm²", "da²", "hm²", "Mm²",
+            "µin²", "in²", "ft²", "yd²", "ac", "mi²"
+        };
+        private static readonly string[] unitText = {
+            "square femtometers", "square picometers", "square nanometers", "square micrometers", "square millimeters", "square centimeters", "square meters", "hectares", "square kilometers",
+            "square decimeters", "square decameters", "square megameters",
+            "square microinches", "square inches", "square foot", "square yards", "acres", "square miles"
+        };
 
         const AreaUnit UNIT_IDX_METRIC_MIN = AreaUnit.SqrFemtoMeter;
         const AreaUnit UNIT_IDX_METRIC_MAX_STD = AreaUnit.SqrKiloMeter;
@@ -60,19 +64,19 @@ namespace HEX.UnitOfMeasure
 
         public Area(double value)
         {
-            this.internalValue = value;
+            internalValue = value;
         }
 
         public Area(double value, AreaUnit unit)
         {
             this.unit = unit;
-            this.internalValue = value;
+            internalValue = value;
         }
 
         public Area(Area other)
         {
-            this.unit = other.unit;
-            this.internalValue = other.internalValue;
+            unit = other.unit;
+            internalValue = other.internalValue;
         }
 
         #endregion Constructors
@@ -92,16 +96,16 @@ namespace HEX.UnitOfMeasure
 
         public override string ToString()
         {
-            return string.Format("{0} {1}", this.internalValue, this.UnitToStringShort());
+            return string.Format("{0} {1}", internalValue, UnitToStringShort());
         }
 
         public string ToString(string format)
         {
             format = format.ToLower();
             if (format.Contains("l"))
-                return this.internalValue.ToString(format.Replace("l", "")) + " " + this.UnitToString();
+                return internalValue.ToString(format.Replace("l", "")) + " " + UnitToString();
             else
-                return this.internalValue.ToString(format) + " " + this.UnitToStringShort();
+                return internalValue.ToString(format) + " " + UnitToStringShort();
         }
 
         /// <summary>
@@ -156,10 +160,10 @@ namespace HEX.UnitOfMeasure
 
         public AreaSystem System
         {
-            get { return getSystem(this.unit); }
+            get { return GetSystem(unit); }
         }
 
-        static AreaSystem getSystem(AreaUnit unit)
+        private static AreaSystem GetSystem(AreaUnit unit)
         {
             if (UNIT_IDX_METRIC_MIN <= unit && unit <= UNIT_IDX_METRIC_MAX)
                 return AreaSystem.Metric;
@@ -169,12 +173,12 @@ namespace HEX.UnitOfMeasure
 
         public bool IsMetric
         {
-            get { return getSystem(unit) == AreaSystem.Metric; }
+            get { return GetSystem(unit) == AreaSystem.Metric; }
         }
 
         public bool IsImperial
         {
-            get { return getSystem(unit) == AreaSystem.Imperial; }
+            get { return GetSystem(unit) == AreaSystem.Imperial; }
         }
 
         #endregion UnitSystem
@@ -187,29 +191,47 @@ namespace HEX.UnitOfMeasure
         /// </summary>
         /// <param name="unit"></param>
         /// <returns></returns>
-        static double factor(AreaUnit unit)
+        private static double Factor(AreaUnit unit)
         {
             switch (unit)
             {
-                case AreaUnit.SqrFemtoMeter: return 1e-30;
-                case AreaUnit.SqrPicoMeter: return 1e-24;
-                case AreaUnit.SqrNanoMeter: return 1e-18;
-                case AreaUnit.SqrMicroMeter: return 1e-12;
-                case AreaUnit.SqrMilliMeter: return 1e-6;
-                case AreaUnit.SqrCentiMeter: return 1e-4;
-                case AreaUnit.SqrDeciMeter: return 1e-2;
-                case AreaUnit.SqrMeter: return 1;
-                case AreaUnit.SqrDecaMeter: return 1e2;
-                case AreaUnit.Hectare: return 1e4;
-                case AreaUnit.SqrKiloMeter: return 1e6;
-                case AreaUnit.SqrMegaMeter: return 1e12;
+                case AreaUnit.SqrFemtoMeter:
+                    return 1e-30;
+                case AreaUnit.SqrPicoMeter:
+                    return 1e-24;
+                case AreaUnit.SqrNanoMeter:
+                    return 1e-18;
+                case AreaUnit.SqrMicroMeter:
+                    return 1e-12;
+                case AreaUnit.SqrMilliMeter:
+                    return 1e-6;
+                case AreaUnit.SqrCentiMeter:
+                    return 1e-4;
+                case AreaUnit.SqrDeciMeter:
+                    return 1e-2;
+                case AreaUnit.SqrMeter:
+                    return 1;
+                case AreaUnit.SqrDecaMeter:
+                    return 1e2;
+                case AreaUnit.Hectare:
+                    return 1e4;
+                case AreaUnit.SqrKiloMeter:
+                    return 1e6;
+                case AreaUnit.SqrMegaMeter:
+                    return 1e12;
 
-                case AreaUnit.SqrMicroInch: return 6.4516e-8;
-                case AreaUnit.SqrInch: return 6.4516e-4;
-                case AreaUnit.SqrFoot: return 9.2903e-2;
-                case AreaUnit.SqrYard: return 0.836127;
-                case AreaUnit.Acre: return 4.0468564224e3;  
-                case AreaUnit.SqrMile: return 2.589988110336e6;
+                case AreaUnit.SqrMicroInch:
+                    return 6.4516e-8;
+                case AreaUnit.SqrInch:
+                    return 6.4516e-4;
+                case AreaUnit.SqrFoot:
+                    return 9.2903e-2;
+                case AreaUnit.SqrYard:
+                    return 0.836127;
+                case AreaUnit.Acre:
+                    return 4.0468564224e3;
+                case AreaUnit.SqrMile:
+                    return 2.589988110336e6;
                 default:
                     throw new NotImplementedException();
             }
@@ -218,11 +240,11 @@ namespace HEX.UnitOfMeasure
         public double As(AreaUnit unit)
         {
             if (this.unit == unit)
-                return this.internalValue;
+                return internalValue;
             else
             {
-                double f = factor(this.unit) / factor(unit);
-                return this.internalValue * f;
+                double f = Factor(this.unit) / Factor(unit);
+                return internalValue * f;
             }
         }
 
@@ -230,15 +252,15 @@ namespace HEX.UnitOfMeasure
         {
             get
             {
-                return this.unit;
+                return unit;
             }
             set
             {
-                if (this.unit != value)
+                if (unit != value)
                 {
-                    double f = factor(this.unit) / factor(value);
-                    this.internalValue *= f;
-                    this.unit = value;
+                    double f = Factor(unit) / Factor(value);
+                    internalValue *= f;
+                    unit = value;
                 }
             }
         }
@@ -265,22 +287,22 @@ namespace HEX.UnitOfMeasure
                 default:
                     return;
             }
-            if (this.internalValue != 0)
+            if (internalValue != 0)
             {
-                double log = Math.Log10(this.internalValue);
-                double f = factor(this.unit);
+                double log = Math.Log10(internalValue);
+                double f = Factor(unit);
                 for (AreaUnit u = max; u >= min; u--)
                 {
-                    double log_new = Math.Log10(f / factor(u));
+                    double log_new = Math.Log10(f / Factor(u));
                     if (log + log_new >= 0)
                     {
-                        this.Unit = u;
+                        Unit = u;
                         break;
                     }
                 }
             }
             else if (IsMetric)
-                this.unit = SI;
+                unit = SI;
         }
 
         #endregion Reshape
@@ -333,7 +355,7 @@ namespace HEX.UnitOfMeasure
         public static Volume operator *(Area ls, Length rs)
         {
             Volume res;
-            switch(ls.System)
+            switch (ls.System)
             {
                 case AreaSystem.Metric:
                     res = new Volume(ls.As(Area.SI) * rs.As(Length.SI), Volume.SI);
@@ -365,7 +387,7 @@ namespace HEX.UnitOfMeasure
 
         public override int GetHashCode()
         {
-            return this.internalValue.GetHashCode() ^ this.Unit.GetHashCode();
+            return internalValue.GetHashCode() ^ Unit.GetHashCode();
         }
 
         #endregion Object overrides
@@ -377,8 +399,8 @@ namespace HEX.UnitOfMeasure
         {
             if (obj != null && obj is Area)
             {
-                double o = ((Area)obj).As(this.unit);
-                return this.internalValue.CompareTo(o);
+                double o = ((Area)obj).As(unit);
+                return internalValue.CompareTo(o);
             }
             else
                 throw new ArgumentException("Object of Area expected!");

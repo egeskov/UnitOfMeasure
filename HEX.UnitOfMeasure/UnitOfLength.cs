@@ -15,7 +15,7 @@ namespace HEX.UnitOfMeasure
         // Imperial common
         Inch, Foot, Yard, Mile,
         // Imperial rare
-        MicroInch, Fathom, 
+        MicroInch, Fathom,
 
         // Astronimical
         LightSecond, LightMinute, LightHour, LightDay, LightWeek, LightYear,
@@ -40,18 +40,22 @@ namespace HEX.UnitOfMeasure
     {
         #region Constants
 
-        static string[] unitTextShort = {"fm", "pm", "nm", "µm", "mm", "cm", "m", "km",
-                                            "dm", "da", "hm", "Mm",
-                                            "in", "ft", "yd", "mi",
-                                            "µin", "fathom",
-                                            "lhs", "lm", "lh", "ld", "lw", "ly",
-                                            "Nm",};
-        static string[] unitText = {"femtometers", "picometers", "nanometers", "micrometers", "millimeters", "centimeters", "meters", "kilometers",
-                                       "decimeters", "decameters", "hectometers", "megameters",
-                                       "inches", "foot", "yards", "miles", 
-                                       "microinches", "fathom",
-                                       "light-seconds", "light-minutes", "light-hours", "light-days", "light-weeks", "light-years",
-                                       "nautical miles"};
+        private static readonly string[] unitTextShort = {
+            "fm", "pm", "nm", "µm", "mm", "cm", "m", "km",
+            "dm", "da", "hm", "Mm",
+            "in", "ft", "yd", "mi",
+            "µin", "fathom",
+            "lhs", "lm", "lh", "ld", "lw", "ly",
+            "Nm"
+        };
+        private static readonly string[] unitText = {
+            "femtometers", "picometers", "nanometers", "micrometers", "millimeters", "centimeters", "meters", "kilometers",
+            "decimeters", "decameters", "hectometers", "megameters",
+            "inches", "foot", "yards", "miles",
+            "microinches", "fathom",
+            "light-seconds", "light-minutes", "light-hours", "light-days", "light-weeks", "light-years",
+            "nautical miles"
+        };
 
         const LengthUnit UNIT_IDX_METRIC_MIN = LengthUnit.FemtoMeter;
         const LengthUnit UNIT_IDX_METRIC_MAX_STD = LengthUnit.KiloMeter;
@@ -81,19 +85,19 @@ namespace HEX.UnitOfMeasure
 
         public Length(double value)
         {
-            this.internalValue = value;
+            internalValue = value;
         }
 
         public Length(double value, LengthUnit unit)
         {
             this.unit = unit;
-            this.internalValue = value;
+            internalValue = value;
         }
 
         public Length(Length other)
         {
-            this.unit = other.unit;
-            this.internalValue = other.internalValue;
+            unit = other.unit;
+            internalValue = other.internalValue;
         }
 
         #endregion Constructors
@@ -113,16 +117,16 @@ namespace HEX.UnitOfMeasure
 
         public override string ToString()
         {
-            return string.Format("{0} {1}", this.internalValue, this.UnitToStringShort());
+            return string.Format("{0} {1}", internalValue, UnitToStringShort());
         }
 
         public string ToString(string format)
         {
             format = format.ToLower();
             if (format.Contains("l"))
-                return this.internalValue.ToString(format.Replace("l", "")) + " " + this.UnitToString();
+                return internalValue.ToString(format.Replace("l", "")) + " " + UnitToString();
             else
-                return this.internalValue.ToString(format) + " " + this.UnitToStringShort();
+                return internalValue.ToString(format) + " " + UnitToStringShort();
         }
 
         /// <summary>
@@ -163,7 +167,7 @@ namespace HEX.UnitOfMeasure
                 result = Parse(s);
                 return true;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 result = new Length();
                 return false;
@@ -177,16 +181,16 @@ namespace HEX.UnitOfMeasure
 
         public LengthSystem System
         {
-            get { return getSystem(this.unit); }
+            get { return GetSystem(unit); }
         }
 
-        static LengthSystem getSystem(LengthUnit unit)
+        private static LengthSystem GetSystem(LengthUnit unit)
         {
             if (UNIT_IDX_METRIC_MIN <= unit && unit <= UNIT_IDX_METRIC_MAX)
                 return LengthSystem.Metric;
             else if (UNIT_IDX_IMPERIAL_MIN <= unit && unit <= UNIT_IDX_IMPERIAL_MAX)
                 return LengthSystem.Imperial;
-            else if(UNIT_IDX_ASTRONIMICAL_MIN <= unit && unit <= UNIT_IDX_ASTRONIMICAL_MAX)
+            else if (UNIT_IDX_ASTRONIMICAL_MIN <= unit && unit <= UNIT_IDX_ASTRONIMICAL_MAX)
                 return LengthSystem.Astronomical;
             else
                 return LengthSystem.Nautical;
@@ -194,22 +198,22 @@ namespace HEX.UnitOfMeasure
 
         public bool IsMetric
         {
-            get { return getSystem(unit) == LengthSystem.Metric; }
+            get { return GetSystem(unit) == LengthSystem.Metric; }
         }
 
         public bool IsImperial
         {
-            get { return getSystem(unit) == LengthSystem.Imperial; }
+            get { return GetSystem(unit) == LengthSystem.Imperial; }
         }
 
         public bool IsAstronimical
         {
-            get { return getSystem(unit) == LengthSystem.Astronomical; }
+            get { return GetSystem(unit) == LengthSystem.Astronomical; }
         }
 
         public bool IsNautical
         {
-            get { return getSystem(unit) == LengthSystem.Nautical;}
+            get { return GetSystem(unit) == LengthSystem.Nautical; }
         }
 
         #endregion UnitSystem
@@ -222,37 +226,62 @@ namespace HEX.UnitOfMeasure
         /// </summary>
         /// <param name="unit"></param>
         /// <returns>Lenght in meters</returns>
-        static double factor(LengthUnit unit)
+        private static double Factor(LengthUnit unit)
         {
             switch (unit)
             {
-                case LengthUnit.FemtoMeter: return 1e-15;
-                case LengthUnit.PicoMeter: return 1e-12;
-                case LengthUnit.NanoMeter: return 1e-9;
-                case LengthUnit.MicroMeter: return 1e-6;
-                case LengthUnit.MilliMeter: return 1e-3;
-                case LengthUnit.CentiMeter: return 1e-2;
-                case LengthUnit.DeciMeter: return 1e-1;
-                case LengthUnit.Meter: return 1;
-                case LengthUnit.DecaMeter: return 1e1;
-                case LengthUnit.HectoMeter: return 1e2;
-                case LengthUnit.KiloMeter: return 1e3;
-                case LengthUnit.MegaMeter: return 1e6;
+                case LengthUnit.FemtoMeter:
+                    return 1e-15;
+                case LengthUnit.PicoMeter:
+                    return 1e-12;
+                case LengthUnit.NanoMeter:
+                    return 1e-9;
+                case LengthUnit.MicroMeter:
+                    return 1e-6;
+                case LengthUnit.MilliMeter:
+                    return 1e-3;
+                case LengthUnit.CentiMeter:
+                    return 1e-2;
+                case LengthUnit.DeciMeter:
+                    return 1e-1;
+                case LengthUnit.Meter:
+                    return 1;
+                case LengthUnit.DecaMeter:
+                    return 1e1;
+                case LengthUnit.HectoMeter:
+                    return 1e2;
+                case LengthUnit.KiloMeter:
+                    return 1e3;
+                case LengthUnit.MegaMeter:
+                    return 1e6;
 
-                case LengthUnit.MicroInch: return 2.54e-8;
-                case LengthUnit.Inch: return 2.54e-2;
-                case LengthUnit.Foot: return 3.048e-1;
-                case LengthUnit.Yard: return 9.144e-1;
-                case LengthUnit.Fathom: return 1.82880;
-                case LengthUnit.Mile: return 1.609344e3;
-                case LengthUnit.NauticalMile: return 1.852e3;
+                case LengthUnit.MicroInch:
+                    return 2.54e-8;
+                case LengthUnit.Inch:
+                    return 2.54e-2;
+                case LengthUnit.Foot:
+                    return 3.048e-1;
+                case LengthUnit.Yard:
+                    return 9.144e-1;
+                case LengthUnit.Fathom:
+                    return 1.82880;
+                case LengthUnit.Mile:
+                    return 1.609344e3;
+                case LengthUnit.NauticalMile:
+                    return 1.852e3;
 
-                case LengthUnit.LightSecond: return 2.99792458e8;
-                case LengthUnit.LightMinute: return 1.798754748e10;
-                case LengthUnit.LightHour: return 1.0792528488e12;
-                case LengthUnit.LightDay: return 2.59020684e13;
-                case LengthUnit.LightWeek: return 1.81314478598e14;
-                case LengthUnit.LightYear: return 9.460730472580e15;
+                case LengthUnit.LightSecond:
+                    return 2.99792458e8;
+                case LengthUnit.LightMinute:
+                    return 1.798754748e10;
+                case LengthUnit.LightHour:
+                    return 1.0792528488e12;
+                case LengthUnit.LightDay:
+                    return 2.59020684e13;
+                case LengthUnit.LightWeek:
+                    return 1.81314478598e14;
+                case LengthUnit.LightYear:
+                    return 9.460730472580e15;
                 default:
                     throw new NotImplementedException();
             }
@@ -261,11 +290,11 @@ namespace HEX.UnitOfMeasure
         public double As(LengthUnit unit)
         {
             if (this.unit == unit)
-                return this.internalValue;
+                return internalValue;
             else
             {
-                double f = factor(this.unit) / factor(unit);
-                return this.internalValue * f;
+                double f = Factor(this.unit) / Factor(unit);
+                return internalValue * f;
             }
         }
 
@@ -273,15 +302,15 @@ namespace HEX.UnitOfMeasure
         {
             get
             {
-                return this.unit;
+                return unit;
             }
             set
             {
-                if (this.unit != value)
+                if (unit != value)
                 {
-                    double f = factor(this.unit) / factor(value);
-                    this.internalValue *= f;
-                    this.unit = value;
+                    double f = Factor(unit) / Factor(value);
+                    internalValue *= f;
+                    unit = value;
                 }
             }
         }
@@ -312,22 +341,22 @@ namespace HEX.UnitOfMeasure
                 default:
                     return;
             }
-            if (this.internalValue != 0)
+            if (internalValue != 0)
             {
-                double log = Math.Log10(this.internalValue);
-                double f = factor(this.unit);
+                double log = Math.Log10(internalValue);
+                double f = Factor(unit);
                 for (LengthUnit u = max; u >= min; u--)
                 {
-                    double log_new = Math.Log10(f / factor(u));
+                    double log_new = Math.Log10(f / Factor(u));
                     if (log + log_new >= 0)
                     {
-                        this.Unit = u;
+                        Unit = u;
                         break;
                     }
                 }
             }
             else if (IsMetric)
-                this.unit = SI;
+                unit = SI;
         }
 
         #endregion Reshape
@@ -419,7 +448,7 @@ namespace HEX.UnitOfMeasure
 
         public override int GetHashCode()
         {
-            return this.internalValue.GetHashCode() ^ this.Unit.GetHashCode();
+            return internalValue.GetHashCode() ^ Unit.GetHashCode();
         }
 
         #endregion Object overrides
@@ -431,8 +460,8 @@ namespace HEX.UnitOfMeasure
         {
             if (obj != null && obj is Length)
             {
-                double o = ((Length)obj).As(this.unit);
-                return this.internalValue.CompareTo(o);
+                double o = ((Length)obj).As(unit);
+                return internalValue.CompareTo(o);
             }
             else
                 throw new ArgumentException("Object of Length expected!");
