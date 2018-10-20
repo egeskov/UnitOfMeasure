@@ -46,7 +46,7 @@ The following four domains are implemented: Length, Area, Volume and Velocity.
 - Missing ability format output to eg. two decimals.
 - Missing ability to parse input from string.
 
-## Example
+## Examples
 1) Adding meters to inches and displaying result:
 
 ```C#
